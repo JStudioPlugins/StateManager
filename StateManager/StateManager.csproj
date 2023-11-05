@@ -298,17 +298,24 @@
   <ItemGroup>
     <Compile Include="BarricadeState.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="InteractableClaimState.cs" />
     <Compile Include="InteractableDoorState.cs" />
     <Compile Include="InteractableFireState.cs" />
     <Compile Include="InteractableGeneratorState.cs" />
     <Compile Include="InteractableLibraryState.cs" />
     <Compile Include="InteractableMannequinState.cs" />
     <Compile Include="InteractableOilState.cs" />
+    <Compile Include="InteractableOxygenatorState.cs" />
     <Compile Include="InteractableRainBarrelState.cs" />
+    <Compile Include="InteractableSignState.cs" />
+    <Compile Include="InteractableSpotState.cs" />
+    <Compile Include="InteractableStereoState.cs" />
     <Compile Include="InteractableStorageState.cs" />
     <Compile Include="InteractableTankState.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsableState.cs" />
+    <Compile Include="UseableGunState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

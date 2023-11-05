@@ -1,4 +1,5 @@
 ﻿using SDG.Unturned;
+using Steamworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,17 @@ using ThreadsafeBlock;
 
 namespace StateManager
 {
-    public class InteractableTankState : BarricadeState
+    public class InteractableSignState : BarricadeState
     {
 
         public BarricadeDrop Drop { get; private set; }
 
-        public ushort Capacity { get; set; }
+        public CSteamID Owner { get; set; }
+        public CSteamID Group { get; set; }
 
-        public InteractableTankState(BarricadeDrop drop) : base(drop.GetServersideData().barricade.state)
+        public string Text { get; set; }
+
+        public InteractableSignState(BarricadeDrop drop) : base(drop.GetServersideData().barricade.state)
         {
             Drop = drop;
             Replicate(drop.GetServersideData().barricade.state);
@@ -26,7 +30,8 @@ namespace StateManager
             _stateBuffer = new byte[Block.BUFFER_SIZE];
             var block = new BlockV2(_stateBuffer);
 
-            block.writeUInt16(Capacity);
+            block.write(Owner, Group);
+            block.writeString(Text);
 
             State = block.getBytes(out int size);
             BarricadeManager.updateReplicatedState(Drop.model, State, size);
@@ -38,7 +43,9 @@ namespace StateManager
             _stateBuffer = new byte[Block.BUFFER_SIZE];
             var block = new BlockV2(_stateBuffer, data.barricade.state);
 
-            Capacity = block.readUInt16();
+            Owner = block.readSteamID();
+            Group = block.readSteamID();
+            Text = block.readString();
 
             State = block.getBytes(out int _);
         }

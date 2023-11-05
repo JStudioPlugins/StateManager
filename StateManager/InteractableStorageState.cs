@@ -15,7 +15,6 @@ namespace StateManager
 {
     public class InteractableStorageState : BarricadeState
     {
-        private byte[] _stateBuffer;
 
         public BarricadeDrop Drop { get; private set; }
 

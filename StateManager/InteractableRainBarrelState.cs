@@ -10,11 +10,10 @@ namespace StateManager
 {
     public class InteractableRainBarrelState : BarricadeState
     {
-        private byte[] _stateBuffer;
 
         public BarricadeDrop Drop { get; private set; }
 
-        public bool IsFull { get; private set; }
+        public bool IsFull { get; set; }
 
         public InteractableRainBarrelState(BarricadeDrop drop) : base(drop.GetServersideData().barricade.state)
         {

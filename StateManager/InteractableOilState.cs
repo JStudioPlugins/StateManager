@@ -10,7 +10,6 @@ namespace StateManager
 {
     public class InteractableOilState : BarricadeState
     {
-        private byte[] _stateBuffer;
 
         public BarricadeDrop Drop { get; private set; }
 

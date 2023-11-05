@@ -8,14 +8,16 @@ using ThreadsafeBlock;
 
 namespace StateManager
 {
-    public class InteractableTankState : BarricadeState
+    public class InteractableStereoState : BarricadeState
     {
 
         public BarricadeDrop Drop { get; private set; }
 
-        public ushort Capacity { get; set; }
+        public Guid Track { get; set; }
 
-        public InteractableTankState(BarricadeDrop drop) : base(drop.GetServersideData().barricade.state)
+        public byte CompressedVolume { get; set; }
+
+        public InteractableStereoState(BarricadeDrop drop) : base(drop.GetServersideData().barricade.state)
         {
             Drop = drop;
             Replicate(drop.GetServersideData().barricade.state);
@@ -26,7 +28,8 @@ namespace StateManager
             _stateBuffer = new byte[Block.BUFFER_SIZE];
             var block = new BlockV2(_stateBuffer);
 
-            block.writeUInt16(Capacity);
+            block.writeGUID(Track);
+            block.writeByte(CompressedVolume);
 
             State = block.getBytes(out int size);
             BarricadeManager.updateReplicatedState(Drop.model, State, size);
@@ -38,7 +41,8 @@ namespace StateManager
             _stateBuffer = new byte[Block.BUFFER_SIZE];
             var block = new BlockV2(_stateBuffer, data.barricade.state);
 
-            Capacity = block.readUInt16();
+            Track = block.readGUID();
+            CompressedVolume = block.readByte();
 
             State = block.getBytes(out int _);
         }

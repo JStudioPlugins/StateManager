@@ -10,11 +10,10 @@ namespace StateManager
 {
     public class InteractableFireState : BarricadeState
     {
-        private byte[] _stateBuffer;
 
         public BarricadeDrop Drop { get; private set; }
 
-        public bool IsLit { get; private set; }
+        public bool IsLit { get; set;  }
 
         public InteractableFireState(BarricadeDrop drop) : base(drop.GetServersideData().barricade.state)
         {
